@@ -1,34 +1,17 @@
 {
   "name": "node",
   "version": "1.0.0",
-  "description": "El mejor curso de Node, por Midudev",
-  "main": "index.js",
+  "description": "https://www.youtube.com/watch?v=yB4n_K7dZV8&list=PLUofhDIg_38qm2oPOV-IRTTEKyrVBBaU7&index=2",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:watch": "node --watch ./clase-2/1.http.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xaxoBye/curso-midudev-nodejs-desde-cero.git"
-  },
-  "keywords": [
-    "curso",
-    "node",
-    "nodjs",
-    "midudev"
-  ],
-  "author": "MAD - midudev",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/xaxoBye/curso-midudev-nodejs-desde-cero/issues"
-  },
-  "homepage": "https://github.com/xaxoBye/curso-midudev-nodejs-desde-cero#readme",
-  "dependencies": {
-    "picocolors": "1.1.1"
-  },
   "devDependencies": {
-    "standard": "^17.1.2"
+    "standard": "17.1.2"
   },
-  "esLintConfig": {
+  "eslintConfig": {
     "extends": "standard"
   }
 }

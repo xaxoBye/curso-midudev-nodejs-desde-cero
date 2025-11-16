@@ -1,4 +1,4 @@
-const net = require("node:net")
+const net = require('node:net')
 
 function findAvailablePort(desiredPort) {
   return new Promise((resolve, reject) => {
@@ -11,8 +11,8 @@ function findAvailablePort(desiredPort) {
       })
     })
 
-    server.on("error", (err) => {
-      if (err.code === "EADDRINUSE") {
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
         findAvailablePort(0).then((port) => resolve(port))
       } else {
         reject(err)
