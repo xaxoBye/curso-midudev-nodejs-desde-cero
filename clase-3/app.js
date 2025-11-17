@@ -1,6 +1,6 @@
 const express = require('express')
 const crypto = require('node:crypto')
-// const cors = require('cors')
+const cors = require('cors')
 const movies = require('./movies.json')
 const { validateMovie, validatePartialMovie } = require('./schemas/movies')
 
@@ -8,21 +8,40 @@ const { validateMovie, validatePartialMovie } = require('./schemas/movies')
 /// https://www.youtube.com/watch?v=-9d3KhCqOtU&list=PLUofhDIg_38qm2oPOV-IRTTEKyrVBBaU7&index=4
 const app = express()
 app.use(express.json())
+app.use(cors({
+  origin: (origin, callback) => {
+    const ACCEPTED_ORIGINS = [
+      'http://localhost:8080',
+      'http://localhost:3000',
+      'https://movies.com'
+    ]
+
+    if (ACCEPTED_ORIGINS.includes(origin)) {
+      return callback(null, true)
+    }
+
+    if (!origin) {
+      return callback(null, true)
+    }
+
+    return callback(new Error('Not allowed by CORS'))
+  }
+}))
 app.disable('x-powered-by') // deshabilitar el header X-Power-By: Express
 
-const ACCEPTED_ORIGINS = [
-  'http://localhost:8080',
-  'http://localhost:3000',
-  'https://movies.com'
-]
+// const ACCEPTED_ORIGINS = [
+//   'http://localhost:8080',
+//   'http://localhost:3000',
+//   'https://movies.com'
+// ]
 
 // Todos los recursos que sean MOVIES se identica con /movies
 app.get('/movies', (req, res) => {
-  const origin = req.header('origin')
+  // const origin = req.header('origin')
 
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-  }
+  // if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+  //   res.header('Access-Control-Allow-Origin', origin)
+  // }
 
   const { genre } = req.query
   if (genre) {
@@ -35,11 +54,11 @@ app.get('/movies', (req, res) => {
 })
 
 app.delete('/movies/:id', (req, res) => {
-  const origin = req.header('origin')
+  // const origin = req.header('origin')
 
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-  }
+  // if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+  //   res.header('Access-Control-Allow-Origin', origin)
+  // }
 
   const { id } = req.params
   const movieIndex = movies.findIndex(movie => movie.id === id)
@@ -103,15 +122,15 @@ app.patch('/movies/:id', (req, res) => {
   return res.json(updateMovie)
 })
 
-app.options('/movies/:id', (req, res) => {
-  const origin = req.header('origin')
+// app.options('/movies/:id', (req, res) => {
+//   const origin = req.header('origin')
 
-  if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
-  }
-  res.send(200)
-})
+//   if (ACCEPTED_ORIGINS.includes(origin) || !origin) {
+//     res.header('Access-Control-Allow-Origin', origin)
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE')
+//   }
+//   res.send(200)
+// })
 
 // escribir en consola.
 // $env:PORT=3000; node app.js
